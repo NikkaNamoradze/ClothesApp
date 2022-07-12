@@ -3,13 +3,15 @@ package com.example.tworecyclerview.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tworecyclerview.databinding.ClothesItemBinding
 import com.example.tworecyclerview.models.ClothesItem
+import com.example.tworecyclerview.utils.ClothesUtil
 
 class ItemsAdapter() : RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder>() {
 
-    private val clothesList = mutableListOf<ClothesItem>()
+    private var clothesList = mutableListOf<ClothesItem>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsViewHolder =
@@ -40,8 +42,9 @@ class ItemsAdapter() : RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder>() {
     }
 
     fun setItemsData(data: List<ClothesItem>) {
-        this.clothesList.clear()
-        this.clothesList.addAll(data)
-        notifyDataSetChanged()
+        val diffUtil = ClothesUtil(clothesList, data)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        clothesList = data as MutableList<ClothesItem>
+        diffResults.dispatchUpdatesTo(this)
     }
 }
