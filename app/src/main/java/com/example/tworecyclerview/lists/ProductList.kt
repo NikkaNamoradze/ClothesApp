@@ -27,6 +27,4 @@ val productList = listOf(
     ClothesItem(R.drawable.wedding_four, "wedding clothes four", 200, "Wedding"),
     ClothesItem(R.drawable.wedding_five, "wedding clothes five", 240, "Wedding")
 
-
-
-    )
+)
